@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"net/http"
 
 	"github.com/joho/godotenv"
 )
@@ -17,5 +18,9 @@ func main() {
 		log.Fatal("Port not found in the envirenment")
 	}
 
-	fmt.Println("Port:", portString)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello World!")
+	})
+
+	log.Fatal(http.ListenAndServe(":"+portString, nil))
 }
