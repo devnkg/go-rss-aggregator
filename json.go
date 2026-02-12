@@ -24,3 +24,8 @@ func respondWithError(w http.ResponseWriter, code int, msg string) {
 	}
 	respondWithJson(w, code, errResponse{Error: msg})
 }
+
+// parseJSON parses the JSON body of a request into a struct
+func parseJSON(r *http.Request, v interface{}) error {
+	return json.NewDecoder(r.Body).Decode(v)
+}
